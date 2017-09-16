@@ -15,22 +15,22 @@
 	}
 ?>
 <div class="row">
-	<?php if( $action=="update" ){ echo "<h3>Update Recommendation</h3>"; } else { echo "<h3>Add Recommendation</h3>"; } ?>
+	<?php echo "<h3>Add Recommendation</h3>"; ?>
 	<form method="POST" action="./actions/recommendation_update.php">
-		<input type="hidden" name="action" id="action" value="<?php echo $action; ?>" />
-		<?php if( $action=="update" ){ echo "<input type='hidden' value='" . $recommendation->r_id . "' name='r_id'>"; } ?>
 		<div class="col-md-6 col-xs-12">
 			<div class="form-group">
 				<label for="doctor_name">Doctor</label>
-				<input required type="text" class="form-control" id="doctor_name" name="doctor_name" value="<?php if( $action=="update" ){ echo $recommendation->doctor_id; } ?>" />
+				<input type="hidden" name="user_id" value="<?php echo $_SESSION['userid']; ?>" />
+				<input readonly required type="text" class="form-control" id="doctor_name" name="doctor_name" value="<?php echo $_SESSION['name'] ?>" />
 			</div>
 			<div class="form-group">
 				<label for="illness_name">Illnes</label>
-				<input required type="text" class="form-control" id="illness_name" name="illness_name" value="<?php if( $action=="update" ){ echo $recommendation->illness_id; } ?>" />
+				<input type="hidden" name="illness_id" value="<?php echo $_GET['illness']; ?>" />
+				<input readonly required type="text" class="form-control" id="illness_name" name="illness_name" value="<?php $illness=$DB->query('SELECT * FROM illness WHERE illness_id=' . $_GET['illness']); $ill=$illness->fetch_object(); echo $ill->illness_name; ?>" />
 			</div>
 			<div class="form-group">
 				<label for="comment">Comments</label>
-				<input required type="text" class="form-control" id="comment" name="comment" value="<?php if( $action=="update" ){ echo $recommendation->comments; } ?>" />
+				<input required type="text" class="form-control" id="comment" name="comment" />
 			</div>
 			<input type="submit" name="update" value="Submit" class="btn btn-primary pull-right" />		
 		</div>
