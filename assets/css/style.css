@@ -1,0 +1,2 @@
+td .glyphicon { cursor:pointer; }
+@media (max-width: 767px) { .fullname { display:none !important; }  }
